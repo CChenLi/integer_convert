@@ -11,6 +11,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 from tqdm import tqdm, trange
 import time
+import pickle
 
 def run_epoch(data_loader,
               model,
@@ -46,7 +47,7 @@ if __name__=="__main__":
     bs = 16
     root = "saved_model"
     epoch_save = 5
-    name = time.asctime()
+    name = "model"
 
     device = device = 'cuda' if torch.cuda.is_available() else 'cpu'
     int_image = IntImage('data/processed.csv')
@@ -58,14 +59,25 @@ if __name__=="__main__":
     valid_loader = DataLoader(valid_set, batch_size=bs,shuffle=True)
     test_loader = DataLoader(test_set, batch_size=bs,shuffle=True)
     model = IntRec().to(device)
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
+    optimizer = optim.Adam(model.parameters(), lr=0.00005)
 
-    for epoch in range(100):
+    valid_acc = []
+    train_acc = []
+    cur_acc = 0
+    for epoch in range(200):
         model.train(True)
         total_loss, acc = run_epoch(train_loader, model, optimizer, device, is_train=True, desc="Train Epoch {}".format(epoch))
-        if epoch % epoch_save == 0:
-            make_checkpoint(root, name, acc, model, optimizer, total_loss)
-    
+        train_acc.append(acc)
+        _, acc = run_epoch(valid_loader, model, optimizer, device, is_train=False, desc="Valid Epoch {}".format(epoch))
+        valid_acc.append(acc)
+        if acc > cur_acc:
+            make_checkpoint(root, name, 2, model, optimizer, _)
+    _, acc = run_epoch(test_loader, model, optimizer, device, is_train=False, desc="Test Epoch {}".format(epoch))
+    print(f"\n\n Test Accuracy: {acc}\n\n")
+    with open("train_acc.pickle", "wb") as fp:   #Pickling
+        pickle.dump(train_acc, fp)
+    with open("valid_acc.pickle", "wb") as fp:   #Pickling
+        pickle.dump(valid_acc, fp)
 
     
 
