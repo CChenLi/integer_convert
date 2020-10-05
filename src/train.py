@@ -57,8 +57,8 @@ if __name__=="__main__":
     train_loader = DataLoader(train_set, batch_size=bs,shuffle=True)
     valid_loader = DataLoader(valid_set, batch_size=bs,shuffle=True)
     test_loader = DataLoader(test_set, batch_size=bs,shuffle=True)
-    model = IntRec()
-    optimizer = optim.Adam(model.parameters(), lr=0.01)
+    model = IntRec().to(device)
+    optimizer = optim.Adam(model.parameters(), lr=0.001)
 
     for epoch in range(100):
         model.train(True)
