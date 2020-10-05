@@ -1,5 +1,5 @@
 # import model
-from utils import IntImage, get_num_correct
+from utils import IntImage, get_num_correct, make_checkpoint
 from torch.utils.data import DataLoader
 import csv
 import cv2
@@ -10,6 +10,7 @@ from model import IntRec
 import torch.optim as optim
 import torch.nn.functional as F
 from tqdm import tqdm, trange
+import time
 
 def run_epoch(data_loader,
               model,
@@ -39,10 +40,13 @@ def run_epoch(data_loader,
     print(ms + ': {}; average correct: {}'.format(total_loss / len(data_loader.dataset),
                                                total_correct / len(data_loader.dataset)))
     print(preds.argmax(dim=1))
-    return total_loss
+    return total_loss, total_correct / len(data_loader.dataset)
     
 if __name__=="__main__":
     bs = 16
+    root = "saved_model"
+    epoch_save = 5
+    name = time.asctime()
 
     device = device = 'cuda' if torch.cuda.is_available() else 'cpu'
     int_image = IntImage('data/processed.csv')
@@ -56,9 +60,12 @@ if __name__=="__main__":
     model = IntRec()
     optimizer = optim.Adam(model.parameters(), lr=0.01)
 
-    for epoch in range(10):
+    for epoch in range(100):
         model.train(True)
-        total_loss = run_epoch(train_loader, model, optimizer, device, True, desc="Train Epoch {}".format(epoch))
+        total_loss, acc = run_epoch(train_loader, model, optimizer, device, is_train=True, desc="Train Epoch {}".format(epoch))
+        if epoch % epoch_save == 0:
+            make_checkpoint(root, name, acc, model, optimizer, total_loss)
+    
 
     
 

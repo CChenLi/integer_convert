@@ -1,5 +1,7 @@
 import csv
 import os
+import os.path as osp
+from os import listdir, rmdir
 import cv2
 import torch
 import pandas as pd
@@ -41,6 +43,25 @@ class IntImage(Dataset):
 
 def get_num_correct(preds, labels):
     return preds.argmax(dim=1).eq(labels).sum().item()
+
+def make_checkpoint(root, name, epoch, model, optimizer, loss):
+    if not osp.exists(root):
+        import os
+        os.mkdir(root)
+    torch.save({
+        'epoch': epoch,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+        'loss': loss,
+    }, osp.join(root, name + '_' + str(epoch) + ".pickle"))
+
+def load_checkpoint(path, model, optimizer):
+    checkpoint = torch.load(path)
+    model.load_state_dict(checkpoint['model_state_dict'])
+    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+    epoch = checkpoint['epoch']
+    loss = checkpoint['loss']
+    return epoch, loss
 
 if __name__=="__main__":
     image_path = 'data/processed.csv'
