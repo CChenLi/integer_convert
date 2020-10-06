@@ -63,11 +63,50 @@ def load_checkpoint(path, model, optimizer):
     loss = checkpoint['loss']
     return epoch, loss
 
-if __name__=="__main__":
-    image_path = 'data/processed.csv'
-    intimage = IntImage(image_path)
-    imageloader = DataLoader(intimage, batch_size=4,shuffle=True)
-    model = IntRec()
-    batch = next(iter(imageloader))
-    model(torch.unsqueeze(batch[0], 1))
 
+class HelperFunc():
+
+    @staticmethod
+    def get_range(indexs):
+        start_index = 0
+        end_index = 0
+        for i in indexs:
+            if i:
+                break
+            start_index += 1
+            end_index += 1
+        for i in indexs[start_index :]:
+            if not i:
+                return start_index, end_index
+            end_index += 1
+        return start_index, -1
+
+    @staticmethod
+    def get_slices(indexs):
+        pairs = []
+        start_index = 0
+        end_index = 0
+        while True:
+            start_index, temp_index = HelperFunc.get_range(indexs[end_index:])
+            if temp_index == -1:
+                break
+            start_index += end_index
+            end_index += temp_index
+            pairs.append([start_index, end_index])
+        return pairs
+
+    @staticmethod
+    def load_checkpoint(path, model, optimizer):
+        checkpoint = torch.load(path)
+        model.load_state_dict(checkpoint['model_state_dict'])
+        optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+        epoch = checkpoint['epoch']
+        loss = checkpoint['loss']
+        return epoch, loss
+
+
+
+
+if __name__=="__main__":
+    x = [0,1,1,0,0,1,1,1,0]
+    HelperFunc.get_slices(x)
