@@ -4,14 +4,14 @@ This project recognize Chinese characters in a picture file and convert them int
 
 ### Prerequisites
 
-[Pytorch](https://pytorch.org/)
-[OpenCV](https://opencv.org/)
-[torchvision](https://pytorch.org/docs/stable/torchvision/index.html)
+[Pytorch](https://pytorch.org/)  
+[OpenCV](https://opencv.org/)  
+[torchvision](https://pytorch.org/docs/stable/torchvision/index.html)  
 
 
 ### Example
 ```
-Give the example
+
 ```
 
 ## Author
