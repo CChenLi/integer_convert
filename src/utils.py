@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 
 def default_loader(path):
     img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+    _, img = cv2.threshold(img, 30, 255, cv2.THRESH_BINARY)
     return torch.Tensor(img)
 
 def get_label(x):
