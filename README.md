@@ -1,6 +1,6 @@
 # Integer_convert
 
-This project recognize Chinese characters in a picture file and convert them into Arabic numerals
+This project recognizes Chinese characters in a picture file and convert them into Arabic numerals
 
 ### Prerequisites
 
