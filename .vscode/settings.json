@@ -1,5 +1,0 @@
-{
-    "python.pythonPath": "/home/cchenli/anaconda3/bin/python",
-    "git.ignoreLimitWarning": true,
-    "python.dataScience.jupyterServerURI": "local"
-}
