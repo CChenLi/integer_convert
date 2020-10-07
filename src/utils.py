@@ -11,7 +11,9 @@ from torchvision import transforms, utils
 import matplotlib.pyplot as plt
 
 def default_loader(path):
+    kernal = np.ones((2,2),np.uint8)
     img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+    img = cv2.dilate(img, kernal, iterations=1)
     _, img = cv2.threshold(img, 30, 255, cv2.THRESH_BINARY)
     return torch.Tensor(img)
 
