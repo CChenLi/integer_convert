@@ -84,6 +84,7 @@ class HelperFunc():
     @staticmethod
     def get_slices(indexs):
         pairs = []
+        span = []
         start_index = 0
         end_index = 0
         while True:
@@ -93,6 +94,12 @@ class HelperFunc():
             start_index += end_index
             end_index += temp_index
             pairs.append([start_index, end_index])
+            span.append(end_index - start_index)
+        threshold = 0.2 * sum(span) / len(span)
+        for i, diff in enumerate(span):
+            if diff < threshold:
+                pairs.remove(pairs[i])
+                span.remove(span[i])
         return pairs
 
     @staticmethod
@@ -103,6 +110,29 @@ class HelperFunc():
         epoch = checkpoint['epoch']
         loss = checkpoint['loss']
         return epoch, loss
+
+    @staticmethod
+    def get_characters(slice):
+        vertical_mask = torch.ones(1, slice.size(0))
+        vertical_index = torch.mm(vertical_mask, slice)
+        cuts = HelperFunc.get_slices((vertical_index != 0).view(-1))
+        span = []
+        for i in cuts:
+            span.append(i[1] - i[0])
+        threshold = 0.8 * sum(span) / len(span)
+        idx_rm = []
+        for i, diff in enumerate(span[:len(span)-1]):
+            if diff < threshold:
+                if i + 1 < len(span):
+                    if span[i+1] < threshold * 1.2:
+                        cuts[i][1] = cuts[i+1][1]
+                        idx_rm.append(i+1)
+                        threshold = 0.8 * sum(span) / len(span)
+        offset = 0
+        for idx in idx_rm:
+            del cuts[idx - offset]
+            offset += 1
+        return cuts
 
 
 
