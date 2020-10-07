@@ -12,6 +12,7 @@ This project recognizes Chinese characters in a image file and convert them into
 [Chinese MNIST](https://www.kaggle.com/gpreda/chinese-mnist/discussion/173101)
 
 ### Files
+- `demo.ipynb` a example to show how the program works.
 - `src/`
   - `model.py` Defination of `class IntRec`, the model trained to convert chinese character to Arabic numerals.
   - `utils.py` 
