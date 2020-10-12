@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader
 import torch.optim as optim
 import torch.nn.functional as F
 from torchvision import transforms
-from utils import IntImage, get_num_correct, HelperFunc
+from src.utils import IntImage, get_num_correct, HelperFunc
 from PIL import Image, ImageOps
 import numpy as np
 import pickle
