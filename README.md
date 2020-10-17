@@ -27,6 +27,7 @@ This project recognizes Chinese characters in a image file and convert them into
 ```
 
 ```
+![](https://github.com/CChenLi/integer_convert/blob/main/pictures/IMG_0257.HEIC)
 
 ## Author
 
