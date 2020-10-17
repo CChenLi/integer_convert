@@ -27,7 +27,6 @@ This project recognizes Chinese characters in a image file and convert them into
 ```
 
 ```
-<img src="https://github.com/CChenLi/integer_convert/blob/main/pictures/Screen%20Shot%202020-10-16%20at%205.26.36%20PM.png" width="40%">
 
 ## Author
 
