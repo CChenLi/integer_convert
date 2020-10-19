@@ -1,7 +1,8 @@
 # Integer_convert
 
-This project recognizes Chinese characters in a image file and convert them into Arabic numerals  
-Check [demo.ipynb](https://github.com/CChenLi/integer_convert/blob/main/demo.ipynb) for the whole process
+- This project recognizes Chinese characters in a image file and convert them into Arabic numerals  
+Check [demo.ipynb](https://github.com/CChenLi/integer_convert/blob/main/demo.ipynb) for the whole process 
+- Future work: to handel rotated input, use PCA for number seperation, and K-mean for character sereration
 
 ### Prerequisites
 
