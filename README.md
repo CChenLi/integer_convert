@@ -11,6 +11,11 @@ Check [demo.ipynb](https://github.com/CChenLi/integer_convert/blob/main/demo.ipy
 
 ### Example
 
+ | label            | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |
+|:-----------------:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| Chinese Character | 零 | 一| 二 | 三 | 四 | 五 | 六 | 七 | 八 | 九 | 十 | 百 | 千 | 万 | 亿 |
+| numeral           | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 100 | 1000 | 10000 | 10-e8 |
+
 - Original photo
 <img width="302" alt="Screen Shot 2020-10-17 at 12 35 32 AM" src="https://user-images.githubusercontent.com/63531857/96331349-67639500-1011-11eb-9973-3d97b9bcff67.png">
 
