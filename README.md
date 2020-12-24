@@ -3,7 +3,7 @@
 - This project recognizes Chinese characters in a image file and convert them into Arabic numerals  
 Check [demo.ipynb](https://github.com/CChenLi/integer_convert/blob/main/demo.ipynb) for the whole process 
 - Future work: to handel rotated input, use Spectral Clustering for number seperation. Define the similarity matrix $W$ with gaussian kernal
- - - <img src="https://latex.codecogs.com/gif.latex?w_{ij}=exp(-\frac{||x_i-x_j||^2}{2 \sigma^2})" />
+ - <img src="https://latex.codecogs.com/gif.latex?w_{ij}=exp(-\frac{||x_i-x_j||^2}{2 \sigma^2})" />
 
 
 ### Prerequisites
